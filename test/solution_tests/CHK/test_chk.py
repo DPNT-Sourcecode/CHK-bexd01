@@ -1,6 +1,8 @@
-from solutions.SUM import sum_solution
+from solutions.CHK import checkout_solution
 
 
-class TestSum():
+class TestCheckout():
     def test_sum(self):
-        assert sum_solution.compute(1, 2) == 3
+        sample = []
+        assert checkout_solution.checkout(sample) == 3
+
