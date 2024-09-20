@@ -34,6 +34,7 @@ def checkout(skus):
 			currBPrice = price_table['B'](currB)
 			currBItem = currBPrice / currB
 			price -= currBItem * freeB
-	return price
+	return int(price)
+
 
 
