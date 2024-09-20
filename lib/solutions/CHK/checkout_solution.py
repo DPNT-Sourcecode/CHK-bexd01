@@ -23,7 +23,7 @@ def checkout(skus):
 		'H': lambda quantity: calculate_price(quantity, [(10, 80), (5, 45), (1, 10)]),
 		'I': lambda quantity: calculate_price(quantity, [(1, 35)]),
 		'J': lambda quantity: calculate_price(quantity, [(1, 60)]),
-		'K': lambda quantity: calculate_price(quantity, [(2, 150), (1, 80)]),
+		'K': lambda quantity: calculate_price(quantity, [(2, 120), (1, 70)]),
 		'L': lambda quantity: calculate_price(quantity, [(1, 90)]),
 		'M': lambda quantity: calculate_price(quantity, [(1, 15)]),
 		'N': lambda quantity: calculate_price(quantity, [(1, 40)]),

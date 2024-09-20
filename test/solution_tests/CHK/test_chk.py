@@ -71,4 +71,10 @@ class TestCheckout:
 	def test_complex25(self):
 		assert checkout_solution.checkout([i for i in "SZXXVV"]) == 156
 
+	def test_complex26(self):
+		assert checkout_solution.checkout([i for i in "K"]) == 70
+
+	def test_complex27(self):
+		assert checkout_solution.checkout([i for i in "ABCDEFGHIJKLMNOPQRSTUVW"]) == 795
+
 
