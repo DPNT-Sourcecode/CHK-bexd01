@@ -47,8 +47,8 @@ def checkout(skus):
 			freeSKU2 = skus_cnt[sku1] // sku1_bundle
 			currSKU2 = skus_cnt.get(sku2, 0)
 			if currSKU2 > 0:
-				price -= price_table['B'](currSKU2)
-				price += price_table['B'](currSKU2 - freeSKU2)
+				price -= price_table[sku2](currSKU2)
+				price += price_table[sku2](currSKU2 - freeSKU2)
 		return price
 	
 	promotable = {
@@ -78,5 +78,6 @@ def checkout(skus):
 		price -= price_table['U']((currU - 1) // 3)
 	
 	return int(price)
+
 
 

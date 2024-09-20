@@ -52,4 +52,14 @@ class TestCheckout:
 	
 	def test_complex19(self):
 		assert checkout_solution.checkout([i for i in "NNNMM"]) == 135
+		
+	def test_complex20(self):
+		assert checkout_solution.checkout([i for i in "RRRRRRQQ"]) == 300
+		
+	def test_complex21(self):
+		assert checkout_solution.checkout([i for i in "NNNM"]) == 120
+		
+	def test_complex22(self):
+		assert checkout_solution.checkout([i for i in "RRRQRQRR"]) == 300
+
 
