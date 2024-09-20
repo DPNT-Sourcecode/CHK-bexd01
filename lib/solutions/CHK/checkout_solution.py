@@ -46,7 +46,7 @@ def checkout(skus):
 		total = sum(skus_quantity[item] for item in skus)
 		price = (total // threshold) * price
 		reduce_quantity = total - total % threshold
-		items_sort_by_price = sorted(skus, key=lambda item: price_table[item](1))
+		items_sort_by_price = sorted(skus, key=lambda item: price_table[item](1), reverse=True)
 		skus_iter = iter(items_sort_by_price)
 		while reduce_quantity > 0:
 			item = next(skus_iter)

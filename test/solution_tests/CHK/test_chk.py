@@ -65,9 +65,6 @@ class TestCheckout:
 	def test_complex23(self):
 		assert checkout_solution.checkout([i for i in "STX"]) == 45
 
-	def test_complex24(self):
-		assert checkout_solution.checkout([i for i in "SZXX"]) == 66
-
 	def test_complex25(self):
 		assert checkout_solution.checkout([i for i in "SZXXVV"]) == 156
 
@@ -76,5 +73,11 @@ class TestCheckout:
 
 	def test_complex27(self):
 		assert checkout_solution.checkout([i for i in "ABCDEFGHIJKLMNOPQRSTUVW"]) == 795
+
+	def test_complex28(self):
+		assert checkout_solution.checkout([i for i in "SSSZ"]) == 65
+		
+	def test_complex29(self):
+		assert checkout_solution.checkout([i for i in "STXS"]) == 62
 
 
