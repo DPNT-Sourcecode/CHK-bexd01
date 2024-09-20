@@ -30,8 +30,10 @@ def checkout(skus):
 	if skus_cnt.get('E', 0) >= 2:
 		freeB = skus_cnt['E'] // 2
 		currB = skus_cnt.get('B', 0)
-		currBPrice = price_table['B'](currB)
-		currBItem = currBPrice / currB
-		price -= currBItem * freeB
+		if currB > 0:
+			currBPrice = price_table['B'](currB)
+			currBItem = currBPrice / currB
+			price -= currBItem * freeB
 	return price
+
 

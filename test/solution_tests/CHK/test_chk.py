@@ -17,6 +17,12 @@ class TestCheckout:
     def test_complex3(self):
         assert checkout_solution.checkout(['A']*9+['B', 'D']+['E', 'E']) == 200+130+50+80+15
 
-
-    def test_complex3(self):
+    def test_complex4(self):
         assert checkout_solution.checkout(['A']*9+['B', 'B', 'D']+['E', 'E']) == 200+130+50+80+15+22.5
+
+    def test_complex5(self):
+        assert checkout_solution.checkout(['A']*9+['B', 'B', 'B', 'D']+['E', 'E', 'E']) == 200+130+50+120+15+50
+
+    def test_complex6(self):
+        assert checkout_solution.checkout(['E', 'E', 'E']) == 120
+
