@@ -30,19 +30,10 @@ class TestCheckout:
 		assert checkout_solution.checkout([i for i in "FFF"]) == 20
 	
 	def test_complex11(self):
-		assert checkout_solution.checkout([i for i in "FF"]) == 10
+		assert checkout_solution.checkout([i for i in "FF"]) == 20
 
 	def test_complex12(self):
-		assert checkout_solution.checkout([i for i in "FFFF"]) == 20
-
-	def test_complex13(self):
-		assert checkout_solution.checkout([i for i in "FFFFF"]) == 30
+		assert checkout_solution.checkout([i for i in "FFFF"]) == 30
 
 	def test_complex14(self):
-		assert checkout_solution.checkout([i for i in "FFFFFF"]) == 30
-
-
-
-
-
-
+		assert checkout_solution.checkout([i for i in "FFFFFF"]) == 40

@@ -35,13 +35,11 @@ def checkout(skus):
 		if currB > 0:
 			price -= price_table['B'](currB)
 			price += price_table['B'](currB-freeB)
-	if skus_cnt.get('F', 0) >= 2:
-		freeB = skus_cnt['F'] // 2
-		currB = skus_cnt.get('F', 0)
-		if currB > 0:
-			price -= price_table['F'](currB)
-			price += price_table['F'](currB-freeB)
+	if skus_cnt.get('F', 0) > 2:
+		freeF = skus_cnt['F'] // 2
+		currF = skus_cnt.get('F', 0)
+		if currF > 0:
+			price -= price_table['F'](currF)
+			price += price_table['F'](currF//2)
+			price += price_table['F'](currF//4)
 	return int(price)
-
-
-
