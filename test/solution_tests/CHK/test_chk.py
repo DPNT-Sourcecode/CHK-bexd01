@@ -27,4 +27,9 @@ class TestCheckout:
 		assert checkout_solution.checkout(['E', 'E', 'E']) == 120
 	
 	def test_complex7(self):
-		assert checkout_solution.checkout(["A", "A", "B", "B", "C", "D", "E", "E", "C", "D"]) == 280
+		assert checkout_solution.checkout(["A", "A", "B", "B", "E", "E", "C", "C", "D", "D"]) == 280
+
+# - {"method": "checkout", "params": ["ABCDEABCDE"], "id": "CHK_R2_038"}, expected: 280, got: 272
+# - {"method": "checkout", "params": ["CCADDEEBBA"], "id": "CHK_R2_039"}, expected: 280, got: 272
+# - {"method": "checkout", "params": ["AAAAAEEBAAABB"], "id": "CHK_R2_040"}, expected: 455, got: 460
+
