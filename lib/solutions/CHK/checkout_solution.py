@@ -50,7 +50,7 @@ def checkout(skus):
 		skus_iter = iter(items_sort_by_price)
 		while reduce_quantity > 0:
 			item = next(skus_iter)
-			while skus_quantity[item] > 0:
+			while reduce_quantity > 0 and skus_quantity[item] > 0:
 				skus_quantity[item] -= 1
 				reduce_quantity -= 1
 		return price
@@ -91,8 +91,10 @@ def checkout(skus):
 	
 	skus_cnt = Counter(skus)
 	price = 0
+	print(skus_cnt)
 	for calculator in bundle_calculators:
 		price += calculator(skus_cnt)
+	print(skus_cnt)
 	for item, quantity in skus_cnt.items():
 		price += base_price_calculators[item](quantity)
 		if item in cross_sku_discount_calculators:
@@ -101,6 +103,7 @@ def checkout(skus):
 			price += self_discount_calculators[item](skus_cnt)
 	
 	return int(price)
+
 
 
 
