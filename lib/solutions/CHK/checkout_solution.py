@@ -35,6 +35,3 @@ def checkout(skus):
 			currBItem = currBPrice / currB
 			price -= currBItem * freeB
 	return int(price)
-
-
-
