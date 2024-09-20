@@ -8,7 +8,7 @@ def checkout(skus):
 		res = 0
 		res += (quantity // 5) * 200
 		res += ((quantity % 5) // 3) * 130
-		res += quantity % 3 * 50
+		res += (quantity % 5) % 3 * 50
 		return res
 	price_table = {
 		'A': calAprice,
