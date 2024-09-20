@@ -28,12 +28,20 @@ def checkout(skus):
 	for item, quantity in skus_cnt.items():
 		price += price_table[item](quantity)
 	
+	# Todo make it unifrom
 	if skus_cnt.get('E', 0) >= 2:
 		freeB = skus_cnt['E'] // 2
 		currB = skus_cnt.get('B', 0)
 		if currB > 0:
 			price -= price_table['B'](currB)
 			price += price_table['B'](currB-freeB)
+	if skus_cnt.get('F', 0) >= 2:
+		freeB = skus_cnt['F'] // 2
+		currB = skus_cnt.get('F', 0)
+		if currB > 0:
+			price -= price_table['F'](currB)
+			price += price_table['F'](currB-freeB)
 	return int(price)
+
 
 
