@@ -28,10 +28,19 @@ def checkout(skus):
 		'M': lambda quantity: calculate_price(quantity, [(1, 15)]),
 		'N': lambda quantity: calculate_price(quantity, [(1, 40)]),
 		'O': lambda quantity: calculate_price(quantity, [(1, 10)]),
-		'P': lambda quantity: calculate_price(quantity, [(5, 200),(1, 50)]),
-		'Q': lambda quantity: calculate_price(quantity, [(3, 80),(1, 30)]),
+		'P': lambda quantity: calculate_price(quantity, [(5, 200), (1, 50)]),
+		'Q': lambda quantity: calculate_price(quantity, [(3, 80), (1, 30)]),
 		'R': lambda quantity: calculate_price(quantity, [(1, 50)]),
+		'S': lambda quantity: calculate_price(quantity, [(1, 30)]),
+		'T': lambda quantity: calculate_price(quantity, [(1, 20)]),
+		'U': lambda quantity: calculate_price(quantity, [(1, 40)]),
+		'V': lambda quantity: calculate_price(quantity, [(3, 130), (2, 90), (1, 50)]),
+		'W': lambda quantity: calculate_price(quantity, [(1, 20)]),
+		'X': lambda quantity: calculate_price(quantity, [(1, 90)]),
+		'Y': lambda quantity: calculate_price(quantity, [(1, 10)]),
+		'Z': lambda quantity: calculate_price(quantity, [(1, 50)]),
 	}
+	
 	def cal_diff(sku1, sku2, sku1_bundle, skus_cnt):
 		price = 0
 		if skus_cnt.get(sku1, 0) >= sku1_bundle:
@@ -41,9 +50,11 @@ def checkout(skus):
 				price -= price_table['B'](currSKU2)
 				price += price_table['B'](currSKU2 - freeSKU2)
 		return price
+	
 	promotable = {
 		'E': lambda sku_q: cal_diff('E', 'B', 2, sku_q),
 		'R': lambda sku_q: cal_diff('R', 'Q', 3, sku_q),
+		'N': lambda sku_q: cal_diff('N', 'M', 3, sku_q),
 	}
 	if any([item not in price_table.keys() for item in skus]):
 		return -1
@@ -56,11 +67,16 @@ def checkout(skus):
 		price += price_table[item](quantity)
 		if item in promotable:
 			price += promotable[item](skus_cnt)
-
+	
+	# TODO MAKE IT UNIFORM LOGIC!
 	if skus_cnt.get('F', 0) > 2:
 		currF = skus_cnt['F']
 		price -= price_table['F']((currF - 1) // 2)
-
+	
+	if skus_cnt.get('U', 0) > 3:
+		currU = skus_cnt['U']
+		price -= price_table['U']((currU - 1) // 3)
+	
 	return int(price)
 
 
