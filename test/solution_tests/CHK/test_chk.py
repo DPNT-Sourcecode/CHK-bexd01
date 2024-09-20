@@ -13,16 +13,7 @@ class TestCheckout:
 	
 	def test_complex2(self):
 		assert checkout_solution.checkout(['A'] * 9 + ['B', 'D']) == 200 + 130 + 50 + 30 + 15
-	
-	# def test_complex3(self):
-	#     assert checkout_solution.checkout(['A']*9+['B', 'D']+['E', 'E']) == 200+130+50+80+15
-	#
-	# def test_complex4(self):
-	#     assert checkout_solution.checkout(['A']*9+['B', 'B', 'D']+['E', 'E']) == 200+130+50+80+15+22.5
-	#
-	# def test_complex5(self):
-	#     assert checkout_solution.checkout(['A']*9+['B', 'B', 'B', 'D']+['E', 'E', 'E']) == 200+130+50+120+15+50
-	
+
 	def test_complex6(self):
 		assert checkout_solution.checkout(['E', 'E', 'E']) == 120
 	
@@ -35,9 +26,7 @@ class TestCheckout:
 	def test_complex9(self):
 		assert checkout_solution.checkout([i for i in "AAAAAEEBAAABB"]) == 455
 
-# - {"method": "checkout", "params": ["ABCDEABCDE"], "id": "CHK_R2_038"}, expected: 280, got: 272
-# - {"method": "checkout", "params": ["CCADDEEBBA"], "id": "CHK_R2_039"}, expected: 280, got: 272
-# - {"method": "checkout", "params": ["AAAAAEEBAAABB"], "id": "CHK_R2_040"}, expected: 455, got: 460
+
 
 
 
