@@ -42,7 +42,8 @@ def checkout(skus):
 				price += price_table['B'](currSKU2 - freeSKU2)
 		return price
 	promotable = {
-		'E': lambda sku_q: cal_diff('E', 'B', 2, sku_q)
+		'E': lambda sku_q: cal_diff('E', 'B', 2, sku_q),
+		'R': lambda sku_q: cal_diff('R', 'Q', 3, sku_q),
 	}
 	if any([item not in price_table.keys() for item in skus]):
 		return -1
@@ -59,11 +60,7 @@ def checkout(skus):
 	if skus_cnt.get('F', 0) > 2:
 		currF = skus_cnt['F']
 		price -= price_table['F']((currF - 1) // 2)
-	if skus_cnt.get('R', 0) >= 3:
-		freeQ = skus_cnt['R'] // 3
-		currQ = skus_cnt.get('Q', 0)
-		if currQ > 0:
-			price -= price_table['B'](currQ)
-			price += price_table['B'](currQ - freeQ)
+
 	return int(price)
+
 
