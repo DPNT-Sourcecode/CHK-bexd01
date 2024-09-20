@@ -10,4 +10,3 @@ class TestCheckout:
     
     def test_complex(self):
         assert checkout_solution.checkout(['A', 'A', 'A', 'A', 'B', 'D']) == 225
-

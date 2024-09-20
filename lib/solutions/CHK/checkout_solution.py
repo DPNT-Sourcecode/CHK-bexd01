@@ -19,4 +19,3 @@ def checkout(skus):
 	for item, quantity in skus_cnt.items():
 		price += price_table[item](quantity)
 	return price
-
