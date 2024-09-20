@@ -50,10 +50,3 @@ def checkout(skus):
 		price -= price_table['F']((currF - 1) // 2)
 	
 	return int(price)
-
-
-
-
-
-
-

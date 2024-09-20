@@ -40,5 +40,3 @@ class TestCheckout:
 	
 	def test_complex15(self):
 		assert checkout_solution.checkout([i for i in "FFFFFFFFF"]) == 50
-
-
