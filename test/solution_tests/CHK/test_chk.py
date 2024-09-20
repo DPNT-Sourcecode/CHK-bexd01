@@ -30,13 +30,14 @@ class TestCheckout:
 		assert checkout_solution.checkout(["A", "A", "B", "B", "E", "E", "C", "C", "D", "D"]) == 280
 	
 	def test_complex8(self):
-		assert checkout_solution.checkout(["CCADDEEBBA"]) == 280
+		assert checkout_solution.checkout([i for i in "CCADDEEBBA"]) == 280
 		
 	def test_complex9(self):
-		assert checkout_solution.checkout(["AAAAAEEBAAABB"]) == 455
+		assert checkout_solution.checkout([i for i in "AAAAAEEBAAABB"]) == 455
 
 # - {"method": "checkout", "params": ["ABCDEABCDE"], "id": "CHK_R2_038"}, expected: 280, got: 272
 # - {"method": "checkout", "params": ["CCADDEEBBA"], "id": "CHK_R2_039"}, expected: 280, got: 272
 # - {"method": "checkout", "params": ["AAAAAEEBAAABB"], "id": "CHK_R2_040"}, expected: 455, got: 460
+
 
 
