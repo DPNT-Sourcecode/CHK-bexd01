@@ -12,9 +12,7 @@ def checkout(skus):
 			quantity %= bundle_size
 		return res
 	
-
-	
-	price_table = {
+	base_price_calculator = {
 		'A': lambda quantity: calculate_price(quantity, [(5, 200), (3, 130), (1, 50)]),
 		'B': lambda quantity: calculate_price(quantity, [(2, 45), (1, 30)]),
 		'C': lambda quantity: calculate_price(quantity, [(1, 20)]),
@@ -43,6 +41,7 @@ def checkout(skus):
 		'Z': lambda quantity: calculate_price(quantity, [(1, 21)]),
 	}
 	
+	# could be more smart obviously
 	def cal_bundle_price(skus_quantity, skus, threshold, price, price_table):
 		total = sum(skus_quantity[item] for item in skus)
 		price = (total // threshold) * price
@@ -56,46 +55,52 @@ def checkout(skus):
 				reduce_quantity -= 1
 		return price
 	
-	bundles = [
-		lambda skus_q: cal_bundle_price(skus_q, ['S', 'T', 'X', 'Y', 'Z'], 3, 45, price_table)
+	bundle_calculators = [
+		lambda skus_q: cal_bundle_price(skus_q, ['S', 'T', 'X', 'Y', 'Z'], 3, 45, base_price_calculator)
 	]
+	
 	def cal_diff(sku1, sku2, sku1_bundle, skus_cnt):
 		price = 0
 		if skus_cnt.get(sku1, 0) >= sku1_bundle:
 			freeSKU2 = skus_cnt[sku1] // sku1_bundle
 			currSKU2 = skus_cnt.get(sku2, 0)
 			if currSKU2 > 0:
-				price -= price_table[sku2](currSKU2)
-				price += price_table[sku2](currSKU2 - freeSKU2)
+				price -= base_price_calculator[sku2](currSKU2)
+				price += base_price_calculator[sku2](currSKU2 - freeSKU2)
 		return price
 	
-	promotable = {
+	cross_sku_discount_calculators = {
 		'E': lambda sku_q: cal_diff('E', 'B', 2, sku_q),
 		'R': lambda sku_q: cal_diff('R', 'Q', 3, sku_q),
 		'N': lambda sku_q: cal_diff('N', 'M', 3, sku_q),
 	}
-	if any([item not in price_table.keys() for item in skus]):
+
+	def calculate_self_discount(quantity, sku, threshold, base_price_table):
+		price = 0
+		if quantity.get(sku, 0) > threshold:
+			currQ = quantity[sku]
+			price -= base_price_table[sku]((currQ - 1) // threshold)
+		return price
+	
+	self_discount_calculators = {
+		'F': lambda q: calculate_self_discount(q, 'F', 2, base_price_calculator),
+		'U': lambda q: calculate_self_discount(q, 'U', 3, base_price_calculator),
+	}
+	
+	if any([item not in base_price_calculator.keys() for item in skus]):
 		return -1
 	
 	skus_cnt = Counter(skus)
-	print(skus_cnt)
 	price = 0
-	for calculator in bundles:
+	for calculator in bundle_calculators:
 		price += calculator(skus_cnt)
-	print(skus_cnt)
 	for item, quantity in skus_cnt.items():
-		price += price_table[item](quantity)
-		if item in promotable:
-			price += promotable[item](skus_cnt)
-	
-	# TODO MAKE IT UNIFORM LOGIC!
-	if skus_cnt.get('F', 0) > 2:
-		currF = skus_cnt['F']
-		price -= price_table['F']((currF - 1) // 2)
-	
-	if skus_cnt.get('U', 0) > 3:
-		currU = skus_cnt['U']
-		price -= price_table['U']((currU - 1) // 3)
+		price += base_price_calculator[item](quantity)
+		if item in cross_sku_discount_calculators:
+			price += cross_sku_discount_calculators[item](skus_cnt)
+		if item in self_discount_calculators:
+			price += self_discount_calculators[item](skus_cnt)
 	
 	return int(price)
+
 
