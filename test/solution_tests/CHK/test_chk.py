@@ -79,6 +79,3 @@ class TestCheckout:
 		
 	def test_complex29(self):
 		assert checkout_solution.checkout([i for i in "STXS"]) == 62
-
-
-

@@ -103,7 +103,3 @@ def checkout(skus):
 			price += self_discount_calculators[item](skus_cnt)
 	
 	return int(price)
-
-
-
-
