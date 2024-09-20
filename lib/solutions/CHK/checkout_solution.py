@@ -31,7 +31,7 @@ def checkout(skus):
 		freeB = skus_cnt['E'] // 2
 		currB = skus_cnt.get('B', 0)
 		if currB > 0:
-			currBPrice = price_table['B'](currB)
-			currBItem = currBPrice / currB
-			price -= currBItem * freeB
+			price -= price_table['B'](currB)
+			price += price_table['B'](currB-freeB)
 	return int(price)
+
