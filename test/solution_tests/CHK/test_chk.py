@@ -64,3 +64,7 @@ class TestCheckout:
 		
 	def test_complex23(self):
 		assert checkout_solution.checkout([i for i in "STX"]) == 45
+
+	def test_complex24(self):
+		assert checkout_solution.checkout([i for i in "SZXX"]) == 66
+

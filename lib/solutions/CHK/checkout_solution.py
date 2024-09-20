@@ -33,7 +33,7 @@ def checkout(skus):
 		'P': lambda quantity: calculate_price(quantity, [(5, 200), (1, 50)]),
 		'Q': lambda quantity: calculate_price(quantity, [(3, 80), (1, 30)]),
 		'R': lambda quantity: calculate_price(quantity, [(1, 50)]),
-		'S': lambda quantity: calculate_price(quantity, [(1, 30)]),
+		'S': lambda quantity: calculate_price(quantity, [(1, 20)]),
 		'T': lambda quantity: calculate_price(quantity, [(1, 20)]),
 		'U': lambda quantity: calculate_price(quantity, [(1, 40)]),
 		'V': lambda quantity: calculate_price(quantity, [(3, 130), (2, 90), (1, 50)]),
@@ -78,10 +78,11 @@ def checkout(skus):
 		return -1
 	
 	skus_cnt = Counter(skus)
-
+	print(skus_cnt)
 	price = 0
 	for calculator in bundles:
 		price += calculator(skus_cnt)
+	print(skus_cnt)
 	for item, quantity in skus_cnt.items():
 		price += price_table[item](quantity)
 		if item in promotable:
@@ -97,3 +98,4 @@ def checkout(skus):
 		price -= price_table['U']((currU - 1) // 3)
 	
 	return int(price)
+
