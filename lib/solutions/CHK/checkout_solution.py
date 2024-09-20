@@ -12,6 +12,23 @@ def checkout(skus):
 			quantity %= bundle_size
 		return res
 	
+	def cal_bundle_price(skus_quantity, skus, threshold, price, price_table):
+		total = sum(skus_quantity[item] for item in skus)
+		price = (total // threshold)*price
+		reduce_quantity = total - total%threshold
+		items_sort_by_price = sorted(skus, key=lambda item:price_table[item](1))
+		skus_iter = iter(items_sort_by_price)
+		while reduce_quantity > 0:
+			item = next(skus_iter)
+			while skus_quantity[item] > 0:
+				skus_quantity[item] -= 1
+				reduce_quantity -= 1
+		
+	
+	bundles = [
+	
+	]
+	
 	price_table = {
 		'A': lambda quantity: calculate_price(quantity, [(5, 200), (3, 130), (1, 50)]),
 		'B': lambda quantity: calculate_price(quantity, [(2, 45), (1, 30)]),
@@ -36,9 +53,9 @@ def checkout(skus):
 		'U': lambda quantity: calculate_price(quantity, [(1, 40)]),
 		'V': lambda quantity: calculate_price(quantity, [(3, 130), (2, 90), (1, 50)]),
 		'W': lambda quantity: calculate_price(quantity, [(1, 20)]),
-		'X': lambda quantity: calculate_price(quantity, [(1, 90)]),
-		'Y': lambda quantity: calculate_price(quantity, [(1, 10)]),
-		'Z': lambda quantity: calculate_price(quantity, [(1, 50)]),
+		'X': lambda quantity: calculate_price(quantity, [(1, 17)]),
+		'Y': lambda quantity: calculate_price(quantity, [(1, 20)]),
+		'Z': lambda quantity: calculate_price(quantity, [(1, 21)]),
 	}
 	
 	def cal_diff(sku1, sku2, sku1_bundle, skus_cnt):
@@ -60,7 +77,7 @@ def checkout(skus):
 		return -1
 	
 	skus_cnt = Counter(skus)
-	
+
 	price = 0
 	
 	for item, quantity in skus_cnt.items():
@@ -78,3 +95,4 @@ def checkout(skus):
 		price -= price_table['U']((currU - 1) // 3)
 	
 	return int(price)
+
