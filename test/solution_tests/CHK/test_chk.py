@@ -6,7 +6,7 @@ class TestCheckout:
 		assert checkout_solution.checkout(['A', 'A']) == 100
 	
 	def test_ignore(self):
-		assert checkout_solution.checkout(['P']) == -1
+		assert checkout_solution.checkout(['AP']) == -1
 	
 	def test_complex(self):
 		assert checkout_solution.checkout(['A', 'A', 'A', 'A', 'B', 'D']) == 225
@@ -40,4 +40,5 @@ class TestCheckout:
 	
 	def test_complex15(self):
 		assert checkout_solution.checkout([i for i in "FFFFFFFFF"]) == 50
+
 

@@ -17,6 +17,9 @@ def checkout(skus):
 		'D': lambda quantity: quantity * 15,
 		'E': lambda quantity: quantity * 40,
 		'F': lambda quantity: quantity * 10,
+		'G': lambda quantity: quantity * 20,
+		'H': lambda quantity: quantity * 20,
+		'I': lambda quantity: quantity * 35,
 	}
 	if any([item not in price_table.keys() for item in skus]):
 		return -1
@@ -40,6 +43,7 @@ def checkout(skus):
 		price -= price_table['F']((currF-1)//2)
 		
 	return int(price)
+
 
 
 
