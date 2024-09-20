@@ -6,9 +6,9 @@ from collections import Counter
 def checkout(skus):
 	def calAprice(quantity):
 		res = 0
-		res += (quantity//5) * 200
-		res += ((quantity%5)//3) * 130
-		res += quantity %3 *50
+		res += (quantity // 5) * 200
+		res += ((quantity % 5) // 3) * 130
+		res += quantity % 3 * 50
 		return res
 	price_table = {
 		'A': calAprice,
@@ -23,7 +23,12 @@ def checkout(skus):
 	skus_cnt = Counter(skus)
 	
 	price = 0
+	
 	for item, quantity in skus_cnt.items():
 		price += price_table[item](quantity)
+	
+	if skus_cnt.get('E', 0) >= 2:
+		freeB = skus_cnt['E'] // 2
+		price -= price_table['B'](freeB)
 	return price
 
