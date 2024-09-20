@@ -4,27 +4,23 @@ from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-	def calAprice(quantity):
+	def calculate_price(quantity, pricing_rules):
 		res = 0
-		res += (quantity // 5) * 200
-		res += ((quantity % 5) // 3) * 130
-		res += (quantity % 5) % 3 * 50
+		for rule in pricing_rules:
+			bundle_size, bundle_price = rule
+			res += (quantity // bundle_size) * bundle_price
+			quantity %= bundle_size
 		return res
-	def calHprice(quantity):
-		res = 0
-		res += (quantity // 10) * 80
-		res += ((quantity % 10) // 5) * 45
-		res += (quantity % 10) % 5 * 10
-		return res
+	
 	price_table = {
-		'A': calAprice,
+		'A': lambda quantity: calculate_price(quantity, [(5, 200), (3, 130), (1, 50)]),
 		'B': lambda quantity: (quantity % 2) * 30 + (quantity // 2) * 45,
 		'C': lambda quantity: quantity * 20,
 		'D': lambda quantity: quantity * 15,
 		'E': lambda quantity: quantity * 40,
 		'F': lambda quantity: quantity * 10,
 		'G': lambda quantity: quantity * 20,
-		'H': calHprice,
+		'H': lambda quantity: calculate_price(quantity, [(10, 80), (5, 45), (1, 10)]),
 		'I': lambda quantity: quantity * 35,
 		'J': lambda quantity: quantity * 60,
 	}
@@ -44,12 +40,13 @@ def checkout(skus):
 		currB = skus_cnt.get('B', 0)
 		if currB > 0:
 			price -= price_table['B'](currB)
-			price += price_table['B'](currB-freeB)
+			price += price_table['B'](currB - freeB)
 	if skus_cnt.get('F', 0) > 2:
 		currF = skus_cnt['F']
-		price -= price_table['F']((currF-1)//2)
-		
+		price -= price_table['F']((currF - 1) // 2)
+	
 	return int(price)
+
 
 
 
