@@ -10,6 +10,12 @@ def checkout(skus):
 		res += ((quantity % 5) // 3) * 130
 		res += (quantity % 5) % 3 * 50
 		return res
+	def calHprice(quantity):
+		res = 0
+		res += (quantity // 10) * 80
+		res += ((quantity % 10) // 5) * 45
+		res += (quantity % 10) % 5 * 10
+		return res
 	price_table = {
 		'A': calAprice,
 		'B': lambda quantity: (quantity % 2) * 30 + (quantity // 2) * 45,
@@ -18,8 +24,9 @@ def checkout(skus):
 		'E': lambda quantity: quantity * 40,
 		'F': lambda quantity: quantity * 10,
 		'G': lambda quantity: quantity * 20,
-		'H': lambda quantity: quantity * 20,
+		'H': calHprice,
 		'I': lambda quantity: quantity * 35,
+		'J': lambda quantity: quantity * 60,
 	}
 	if any([item not in price_table.keys() for item in skus]):
 		return -1
@@ -43,6 +50,7 @@ def checkout(skus):
 		price -= price_table['F']((currF-1)//2)
 		
 	return int(price)
+
 
 
 
