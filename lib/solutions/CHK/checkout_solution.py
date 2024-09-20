@@ -12,7 +12,7 @@ def checkout(skus):
 			quantity %= bundle_size
 		return res
 	
-	base_price_calculator = {
+	base_price_calculators = {
 		'A': lambda quantity: calculate_price(quantity, [(5, 200), (3, 130), (1, 50)]),
 		'B': lambda quantity: calculate_price(quantity, [(2, 45), (1, 30)]),
 		'C': lambda quantity: calculate_price(quantity, [(1, 20)]),
@@ -56,7 +56,7 @@ def checkout(skus):
 		return price
 	
 	bundle_calculators = [
-		lambda skus_q: cal_bundle_price(skus_q, ['S', 'T', 'X', 'Y', 'Z'], 3, 45, base_price_calculator)
+		lambda skus_q: cal_bundle_price(skus_q, ['S', 'T', 'X', 'Y', 'Z'], 3, 45, base_price_calculators)
 	]
 	
 	def cal_diff(sku1, sku2, sku1_bundle, skus_cnt):
@@ -65,8 +65,8 @@ def checkout(skus):
 			freeSKU2 = skus_cnt[sku1] // sku1_bundle
 			currSKU2 = skus_cnt.get(sku2, 0)
 			if currSKU2 > 0:
-				price -= base_price_calculator[sku2](currSKU2)
-				price += base_price_calculator[sku2](currSKU2 - freeSKU2)
+				price -= base_price_calculators[sku2](currSKU2)
+				price += base_price_calculators[sku2](currSKU2 - freeSKU2)
 		return price
 	
 	cross_sku_discount_calculators = {
@@ -81,13 +81,12 @@ def checkout(skus):
 			currQ = quantity[sku]
 			price -= base_price_table[sku]((currQ - 1) // threshold)
 		return price
-	
 	self_discount_calculators = {
-		'F': lambda q: calculate_self_discount(q, 'F', 2, base_price_calculator),
-		'U': lambda q: calculate_self_discount(q, 'U', 3, base_price_calculator),
+		'F': lambda q: calculate_self_discount(q, 'F', 2, base_price_calculators),
+		'U': lambda q: calculate_self_discount(q, 'U', 3, base_price_calculators),
 	}
 	
-	if any([item not in base_price_calculator.keys() for item in skus]):
+	if any([item not in base_price_calculators.keys() for item in skus]):
 		return -1
 	
 	skus_cnt = Counter(skus)
@@ -95,12 +94,13 @@ def checkout(skus):
 	for calculator in bundle_calculators:
 		price += calculator(skus_cnt)
 	for item, quantity in skus_cnt.items():
-		price += base_price_calculator[item](quantity)
+		price += base_price_calculators[item](quantity)
 		if item in cross_sku_discount_calculators:
 			price += cross_sku_discount_calculators[item](skus_cnt)
 		if item in self_discount_calculators:
 			price += self_discount_calculators[item](skus_cnt)
 	
 	return int(price)
+
 
 
