@@ -14,15 +14,19 @@ def checkout(skus):
 	
 	price_table = {
 		'A': lambda quantity: calculate_price(quantity, [(5, 200), (3, 130), (1, 50)]),
-		'B': lambda quantity: (quantity % 2) * 30 + (quantity // 2) * 45,
-		'C': lambda quantity: quantity * 20,
-		'D': lambda quantity: quantity * 15,
-		'E': lambda quantity: quantity * 40,
-		'F': lambda quantity: quantity * 10,
-		'G': lambda quantity: quantity * 20,
+		'B': lambda quantity: calculate_price(quantity, [(2, 45), (1, 30)]),
+		'C': lambda quantity: calculate_price(quantity, [(1, 20)]),
+		'D': lambda quantity: calculate_price(quantity, [(1, 15)]),
+		'E': lambda quantity: calculate_price(quantity, [(1, 40)]),
+		'F': lambda quantity: calculate_price(quantity, [(1, 10)]),
+		'G': lambda quantity: calculate_price(quantity, [(1, 20)]),
 		'H': lambda quantity: calculate_price(quantity, [(10, 80), (5, 45), (1, 10)]),
-		'I': lambda quantity: quantity * 35,
-		'J': lambda quantity: quantity * 60,
+		'I': lambda quantity: calculate_price(quantity, [(1, 35)]),
+		'J': lambda quantity: calculate_price(quantity, [(1, 60)]),
+		'K': lambda quantity: calculate_price(quantity, [(2, 150), (1, 80)]),
+		'L': lambda quantity: calculate_price(quantity, [(1, 90)]),
+		'M': lambda quantity: calculate_price(quantity, [(1, 15)]),
+		'N': lambda quantity: calculate_price(quantity, [(1, 40)]),
 	}
 	if any([item not in price_table.keys() for item in skus]):
 		return -1
@@ -46,6 +50,7 @@ def checkout(skus):
 		price -= price_table['F']((currF - 1) // 2)
 	
 	return int(price)
+
 
 
 
